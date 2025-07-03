@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=ADLaM+Display&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - PlanWise_UserClient</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/PlanWise_UserClient.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <img class="logo" src="~/images/Logo.png" alt="logo" style="width: 87px; height: 74px" />
+        <p class="site-title">PlanWise</p>
+        <img class="notification" src="~/images/notification bell.png" alt="notification-bell"  style="width: 50px; height: 50px"/>
+    </header>
+
+    <nav>
+        <a class="nav-link  @(ViewContext.RouteData.Values["controller"]?.ToString() == "Dashboard" ? "active" : "")" asp-area="" asp-controller="Dashboard" asp-action="Index">
+            <img src="~/images/Home.png" alt="home" style="width: 50px; height: 50px" />
+            Home
+        </a>
+        <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Template" ? "active" : "")" asp-area="" asp-controller="Template" asp-action="Index">
+            <img src="~/images/template.png" alt="event-template" style="width: 50px; height: 50px" />
+            Event Templates
+        </a>
+        <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Events" ? "active" : "")" asp-area="" asp-controller="Events" asp-action="Index">
+            <img src="~/images/my-events.png" alt="my-events" style="width: 50px; height: 50px" />
+            My Events
+        </a>
+        <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Calendar" ? "active" : "")" asp-area="" asp-controller="Calendar" asp-action="Index">
+            <img src="~/images/calendar.png" alt="calendar" style="width: 50px; height: 50px" />
+            Calendar
+        </a>
+        <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Messages" ? "active" : "")" asp-area="" asp-controller="Messages" asp-action="Index">
+            <img src="~/images/messages.png" alt="messages" style="width: 50px; height: 50px" />
+            Messages
+        </a>
+        <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Estimator" ? "active" : "")" asp-area="" asp-controller="Estimator" asp-action="Index">
+            <img src="~/images/estimator.png" alt="budget-estimator" style="width: 50px; height: 50px" />
+            Budget Estimator
+        </a>
+        <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Settings" ? "active" : "")" asp-area="" asp-controller="Settings" asp-action="Index">
+            <img src="~/images/settings.png" alt="account-settings" style="width: 50px; height: 50px" />
+            Account Settings
+        </a>
+    </nav>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+  <!-- <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2025 - PlanWise_UserClient - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer> -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

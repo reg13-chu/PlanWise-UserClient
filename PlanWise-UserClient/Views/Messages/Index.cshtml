@@ -1,0 +1,166 @@
+﻿@model List<PlanWise_UserClient.Models.Messages>
+
+@{
+    Layout = "_Layout";
+}
+
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=ADLaM+Display&family=Afacad:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #FFF2F2;
+            color: #2D336B;
+            overflow-x: hidden;
+        }
+
+        .title-page {
+            font-family: 'Afacad', sans-serif;
+            margin-top: 2%;
+        }
+
+        .convo-container {
+            width: 85%;
+            height: 630px;
+            background-color: rgba(169, 181, 223, 0.36);
+            margin: 2% 0 0 3%;
+            border-radius: 30px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .name-container {
+            background-color: rgb(169, 181, 223);
+            font-family: 'Afacad', sans-serif;
+            text-align: center;
+            width: 100%;
+            height: 120px;
+            border-radius: 30px 30px 0 0;
+            font-size: 32px;
+            font-weight: bold;
+            padding: 2.5% 0 0 0;
+        }
+
+        .message-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .message {
+            max-width: 60%;
+            padding: 15px;
+            border-radius: 15px;
+            margin: 10px;
+            font-size: 14px;
+            line-height: 1.4;
+            position: relative;
+            word-wrap: break-word;
+        }
+
+        .left {
+            align-self: flex-start;
+            background-color: #a9b5df;
+        }
+
+        .right {
+            align-self: flex-end;
+            background-color: #bcd2ff;
+        }
+
+        .timestamp {
+            font-size: 0.75rem;
+            color: #555;
+            margin-top: 5px;
+            text-align: right;
+        }
+
+        .input-area {
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #a9b5df;
+            border-radius: 0 0 30px 30px;
+        }
+
+        .upload-btn {
+            border: none;
+            background: none;
+            font-size: 14px;
+            color: #2D336B;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding-right: 15px;
+            border-right: 1px solid #2D336B;
+        }
+
+        .upload-btn i {
+            margin-right: 5px;
+        }
+
+        .message-input {
+            flex: 1;
+            border: none;
+            background: none;
+            padding: 10px;
+            color: #2D336B;
+        }
+
+         .input::placeholder {
+            color: #A9B5DF;
+         }
+
+        .send-btn {
+            background-color: #b2c2f2;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 20px;
+            color: #2D336B;
+        }
+
+        .send-btn:hover {
+            background-color: #9fb3e5;
+        }
+    </style>
+</head>
+
+<h2 class="title-page">Messages</h2>
+
+<div class="convo-container">
+    <div class="name-container">
+        <p>[Planner Name]</p>
+    </div>
+
+    <div class="message-container">
+        @foreach (var message in Model)
+        {
+            <div class="message @(message.IsSender ? "right" : "left")">
+                <p>@message.Content</p>
+                <small class="timestamp">@message.Timestamp.ToString("MMM dd, yyyy hh:mm tt")</small>
+            </div>
+        }
+    </div>
+
+    <div class="input-area">
+        <button class="upload-btn">
+            <i>📁</i> Upload File
+        </button>
+        <input type="text" class="message-input" placeholder="Enter your message here..." />
+        <button class="send-btn">➤</button>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        window.onload = function () {
+            var container = document.querySelector('.message-container');
+            if (container) {
+                container.scrollTop = container.scrollHeight;
+            }
+        };
+    </script>
+}

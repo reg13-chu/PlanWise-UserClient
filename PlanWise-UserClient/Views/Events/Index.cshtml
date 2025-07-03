@@ -1,0 +1,230 @@
+﻿@model PlanWise_Client.Models.EventsViewModel
+
+
+@{
+    Layout = "_Layout";
+}
+
+@{
+    var steps = new[] {
+        "Booking Submitted",
+        "Planning",
+        "Service Provider Coordination",
+        "Setup Phase",
+        "Event Day",
+        "Post-event Wrap-up"
+    };
+
+    var current = Model.Step;
+}
+
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #FFF2F2;
+            color: #2D336B;
+            overflow-x: hidden;
+        }
+
+        .events-container {
+            max-width: 80%;
+            height: auto;
+            margin: 40px auto;
+            font-family: 'Afacad', sans-serif;
+            position: relative;
+            right: 5%;
+            background-color: #A9B5DF;
+            padding: 2%;
+            border-radius: 10px;
+        }
+        
+        .event-detail {
+            padding: 20px;
+            border-radius: 10px;
+            background-color: rgba(45, 51, 107, 18%);
+            color: #2D336B;
+            width: 100%;
+            height: 143px;
+            text-align: center;
+        }
+
+        .event-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .event-date, .event-location {
+            font-size: 18px;
+            margin: 5px 0;
+        }
+
+        .event-date {
+            font-style: italic;
+        }
+
+        .progress-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .progress-step {
+            display: flex;
+            align-items: center;
+        }
+
+        .circle-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 80px; /* so labels wrap cleanly */
+            position: relative;
+        }
+
+        .circle {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid gray;
+            background-color: white;
+            margin-bottom: 6px; /* push label downward */
+        }
+
+            .circle.done {
+                background-color: #2D336B;
+                border-color: #2D336B;
+            }
+
+        .step-label {
+            font-size: 12px;
+            text-align: center;
+            max-width: 80px;
+            min-height: 32px; /* make all labels the same height */
+            line-height: 1.2;
+        }
+
+        .line {
+            width: 40px;
+            height: 2px;
+            background-color: #FFF2F2;
+            margin: 0 10px;
+            align-self: center;
+        }
+
+            .line.done {
+                background-color: #2D336B;
+            }
+
+        h4 { 
+            text-align: center;
+            margin-top: 20px;
+            font-size: 20px;
+            color: #2D336B;
+        }
+
+        .task-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 16px;
+            background-color: #2D336B;
+            color: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+            .task-table th,
+            .task-table td {
+                padding: 12px 15px;
+                border-bottom: 1px solid #ccc;
+            }
+
+            .task-table th {
+                background-color: #2D336B;
+                color: white;
+                text-align: left;
+            }
+
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+            .status-badge.done {
+                background-color: #4CAF50;
+                color: white;
+            }
+
+            .status-badge.in-progress {
+                background-color: #FFD600;
+                color: #2D336B;
+            }
+
+            .status-badge.not-started {
+                background-color: #F44336;
+                color: white;
+            }
+    </style>
+</head>
+
+<div class="events-container">
+    <div class="event-detail">
+        <p class="event-title">[Event Title]</p>
+        <p class="event-date">[Event Date]</p>
+        <p class="event-location">[Event Location]</p>
+    </div>
+
+    <h4>Event Progress Tracker</h4>
+
+    <div class="progress-tracker">
+        <div class="progress-container">
+            @for (int i = 0; i < steps.Length; i++)
+            {
+                var isDone = i <= current;
+                <div class="progress-step">
+                    <div class="circle-container">
+                        <div class="circle @(isDone ? "done" : "")"></div>
+                        <div class="step-label">@steps[i]</div>
+                    </div>
+
+                    @if (i < steps.Length - 1)
+                    {
+                        <div class="line @(i < current ? "done" : "")"></div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="event-task">
+        <table class="task-table">
+            <thead>
+                <tr>
+                    <th>Task</th>
+                    <th>Status</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var task in Model.Tasks)
+                {
+                    <tr>
+                        <td>@task.Name</td>
+                        <td>
+                            <span class="status-badge @task.Status.ToLower().Replace(" ", "-")">
+                                @task.Status.ToUpper()
+                            </span>
+                        </td>
+                        <td>@task.Notes</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

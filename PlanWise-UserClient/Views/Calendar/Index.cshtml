@@ -1,0 +1,113 @@
+﻿@model PlanWise_UserClient.Models.CalendarViewModel
+@using System.Globalization
+
+@{
+    Layout = "_Layout";
+}
+
+@{
+    var daysInMonth = DateTime.DaysInMonth(Model.Year, Model.Month);
+    var firstDay = new DateTime(Model.Year, Model.Month, 1);
+    var startDay = (int)firstDay.DayOfWeek;
+    var bookedDates = Model.BookedDates.Select(d => d.Day).ToList();
+    var monthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(Model.Month);
+}
+
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=ADLaM+Display&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #FFF2F2;
+            color: #2D336B;
+            overflow: hidden;
+        }
+
+        .calendar-container {
+            max-width: 80%;
+            margin: 40px auto;
+            font-family: 'Afacad', sans-serif;
+            position: relative;
+            right: 5%;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+            .calendar-header h2 {
+                margin: 0;
+            }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            margin-top: 10px;
+        }
+
+        .day-name, .day-cell {
+            padding: 20px 15px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 20px;
+            background-color: rgba(169, 181, 223, 58%);
+        }
+
+        .day-cell {
+            padding: 30px 15px;
+        }
+
+        .day-name {
+            background-color: rgba(45, 51, 107, 67%);
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .empty-cell {
+            background-color: transparent;
+            border: none;
+        }
+
+        .booked {
+            background-color: #ffb3b3;
+            color: white;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+
+
+<div class="calendar-container">
+    <div class="calendar-header">
+        <a asp-action="Index" asp-route-month="@(Model.Month == 1 ? 12 : Model.Month - 1)" asp-route-year="@(Model.Month == 1 ? Model.Year - 1 : Model.Year)">←</a>
+        <h2>@monthName @Model.Year</h2>
+        <a asp-action="Index" asp-route-month="@(Model.Month == 12 ? 1 : Model.Month + 1)" asp-route-year="@(Model.Month == 12 ? Model.Year + 1 : Model.Year)">→</a>
+    </div>
+
+    <div class="calendar-grid">
+        @foreach (var day in CultureInfo.CurrentCulture.DateTimeFormat.AbbreviatedDayNames)
+        {
+            <div class="day-name">@day</div>
+        }
+
+        @for (int i = 0; i < startDay; i++)
+        {
+            <div class="day-cell empty-cell"></div>
+        }
+
+        @for (int day = 1; day <= daysInMonth; day++)
+        {
+            bool isBooked = bookedDates.Contains(day);
+            <div class="day-cell @(isBooked ? "booked" : "")">
+                @day
+            </div>
+        }
+    </div>
+</div>
+

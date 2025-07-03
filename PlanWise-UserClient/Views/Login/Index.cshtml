@@ -1,0 +1,103 @@
+﻿@model PlanWise_UserClient.Models.LoginViewModel
+
+@{
+    Layout = null; 
+}
+
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=ADLaM+Display&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    <style>
+        body{
+            background-color: #FFF2F2;
+        }
+        h1{
+            font-family: 'ADLaM Display', sans-serif;
+            font-size: 4rem;
+            color: #2D336B;
+            text-align: right;
+            position: absolute;
+            top: 20%;
+            right: 20%;
+        }
+
+        #logo img {
+            width: 150px;
+            margin-bottom: 20px;
+            position: absolute;
+            top: 10%;
+            left: 66%;
+        }
+
+        #login-pic img{
+            position: absolute;
+            top: 10%;
+            right: 50%;
+        }
+
+        .form-input {
+            font-family: 'Afacad', sans-serif;
+            font-size: 1.5rem;
+            color: #2D336B;
+        }
+
+        .form-input input{
+                width: 400px;
+                height: 40px;
+                border-radius: 5px;
+                border: 1px solid #2D336B;
+                background-color: #A9B5DF;
+                padding: 10px;
+                margin-bottom: 20px;
+                color: #FFFF;
+        }
+
+        .btn-primary {
+            background-color: #2D336B;
+            color: #FFFF;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            padding: 10px 50px;
+            position: absolute;
+            left: 30%;
+        }
+
+        form {
+            position: absolute;
+            top: 40%;
+            right: 17%;
+    
+        }
+    </style>
+</head>
+
+<div id="logo" style="text-align: center;">
+    <img src="~/images/LOGO.png" alt="PlanWise Logo" style="width: 150px; margin-bottom: 20px;" />
+</div>
+<h1>PlanWise</h1>
+
+<div id="login-pic">
+    <img src="~/images/log-in.png" alt="Log In Picture" style="height: 659px; width: 797px" />
+</div>
+
+
+<form asp-action="Index" method="post">
+    <div class="form-input">
+        <label asp-for="Username"></label> <br/>
+        <input asp-for="Username" class="form-control" />
+        <span asp-validation-for="Username" class="text-danger"></span>
+    </div>
+
+    <div class="form-input">
+        <label asp-for="Password"></label> <br />   
+        <input asp-for="Password" class="form-control" type="password" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Log In</button>
+</form>
+
+<partial name="_ValidationScriptsPartial" />

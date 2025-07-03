@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=ADLaM+Display&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&display=swap');
+
+header {
+    width: 100%;
+    height: 90px;
+    background-color: #FFF2F2;
+    box-shadow: 0 4px 10px rgba(45, 51, 107, 26%);
+    font-family: 'ADLaM Display', sans-serif;
+    display: flex;
+    gap: 10px;
+    position: fixed;
+    z-index: 100;
+}
+
+header .logo {
+    margin: 5px 0px 10px 20px;
+}
+
+.site-title {
+    font-size: 50px;
+    color: #2D336B;
+    margin: 10px 0 0;
+    z-index: 100;
+    font-family: 'ADLaM Display', sans-serif;
+}
+
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 50px;
+
+}
+
+nav {
+    width: 20%;
+    height: 100%;
+    position: fixed;
+    box-shadow: 4px 0px 10px rgba(45, 51, 107, 26%);
+    background-color: #FFF2F2;
+    font-family: 'Afacad', sans-serif;
+    padding: 9% 20px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-size: 22px;
+}
+
+.nav-link {
+    color: #2D336B;
+    text-decoration: none;
+    font-weight: 600;
+   
+}
+
+.nav-link img {
+    margin-right: 10px;
+}
+
+.nav-link.active {
+    background-color: #A9B5DF;
+}
+
+.container {
+
+    margin-left: 20%;
+    padding: 6% 20px 0;
+}

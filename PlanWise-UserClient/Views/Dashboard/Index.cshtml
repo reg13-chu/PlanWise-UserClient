@@ -1,0 +1,240 @@
+﻿@model Tuple<List<PlanWise_UserClient.Models.ChecklistItem>, List<PlanWise_UserClient.Models.ChecklistItem>>
+
+
+@{
+    Layout = "_Layout";
+}
+
+
+
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=ADLaM+Display&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    <style>
+        body{
+            background-color: #FFF2F2;
+            color: #2D336B;
+            overflow-x: hidden;
+        }
+
+        .greet {
+            font-family: 'ADLaM Display', sans-serif;
+            font-size: 24px;
+            margin-left: 10%;
+            margin-top: 20px;
+        }
+
+        p {
+            font-family: 'Afacad', sans-serif;
+            margin-left: 10%;
+        }
+
+        .upcoming-event {
+            background-color: #A9B5DF;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 20px 0 10%;
+            color: #2D336B;
+            height: 335px;
+            width: 89%;
+            font-family: 'Afacad', sans-serif;
+            position: relative;
+        }
+
+       h4 {
+            text-align: center;
+            font-weight: 800;
+        }
+
+
+        .upcoming-event div {
+             position: absolute;
+             margin-top: 20px;
+             left: 30%;
+             width: 70%;
+        }
+
+        #countdown {
+            font-style: italic;
+            font-size: 24px;
+            margin-left: 10%;
+        }
+
+        .progress-button {
+            display: block;
+            width: 210px;
+            height: 30px;
+            background-color: #2D336B;
+            color: #FFFF;
+            text-align: center;
+            border-radius: 50px;
+            text-decoration: none;
+            font-family: 'Afacad', sans-serif;
+            font-size: 18px;
+            margin: 22% auto;
+        }
+
+         .progress-button:hover {
+            background-color: #1A1F4B;
+            color: #FFFF;
+         }  
+
+        .lower-container {
+            display: flex;
+            margin: 20px 1% 0 5%;
+            padding: 0 0 0 5%;
+            gap: 25px;
+            font-family: 'Afacad', sans-serif;
+
+        }
+
+        .budget, .services, .requirements {
+            background-color: #A9B5DF;
+            padding: 20px;
+            border-radius: 10px;
+            color: #2D336B;
+            width: 32%;
+            height: 260px;
+        }
+
+        .budget {
+            position: relative;
+        }
+
+        .budget div {
+            position: absolute;
+            margin-top: 20px;
+            left: 2%;
+            width: 90%;
+        }
+
+        #total-budget {
+            font-weight: bold;
+            font-size: 24px;
+        }
+
+        .budget strong {
+            font-size: 20px
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+            .checklist-item input[type="checkbox"] {
+                appearance: none;
+                -webkit-appearance: none;
+                width: 20px;
+                height: 20px;
+                border: 2px solid #2D336B;
+                border-radius: 3px;
+                margin-right: 15px;
+                position: relative;
+                cursor: default;
+                background-color: transparent;
+            }
+
+                .checklist-item input[type="checkbox"]:checked {
+                    background-color: #2D336B;
+                    border-color: #2D336B;
+                }
+
+                .checklist-item input[type="checkbox"]::after {
+                    content: '';
+                    position: absolute;
+                    top: 3px;
+                    left: 6px;
+                    width: 5px;
+                    height: 10px;
+                    border: solid white;
+                    border-width: 0 2px 2px 0;
+                    transform: rotate(45deg);
+                    display: none;
+                }
+
+                .checklist-item input[type="checkbox"]:checked::after {
+                    display: block;
+                }
+
+            .checklist-item label {
+                font-size: 1.2rem;
+                color: #2D336B;
+                display: flex;
+                align-items: center;
+                width: 100%;
+            }
+
+            .checklist-item.completed label {
+                text-decoration: line-through;
+                color: #2D336B;
+            }
+
+
+            .services h4 {
+                margin-bottom: 20px;
+            }
+        
+    </style>
+</head>
+
+
+<p class="greet">Greetings, [User]!</p>
+<p>Here's a summary of your upcoming event.</p>
+
+<div class="upcoming-event">
+    <h4>My Upcoming Event</h4>
+    <div>
+        <p><strong>Event Name:</strong> [Event Name]</p>
+        <p><strong>Date:</strong> [Event Date]</p>
+        <p><strong>Time:</strong> [Event Time]</p>
+        <p><strong>Location:</strong> [Event Location]</p>
+        <p id="countdown"><strong>Your event is in [12 days]!</strong></p>
+    </div>
+    
+    <a class="progress-button" asp-controller="Progress" asp-action="Index" class="btn btn-primary">
+        View Your Progress
+    </a>
+</div>
+
+<div class="lower-container">
+    <div class="budget">
+        <h4>Budget</h4>
+        <div>
+            <p>Total Budget: <strong id="total-budget">[XX,000]</strong></p>
+            <p>Payment Status: <strong>[Downpayment]</strong></p>
+            <p>Remaining Balance: <strong>[XX,000]</strong></p>
+        </div>
+    </div>
+    <div class="services">
+        <h4>My Booked Services</h4>
+        <div>
+            @foreach (var tasks in Model.Item1)
+            {
+                <div class="checklist-item @(tasks.IsCompleted ? "completed" : "")">
+                    <label>
+                        <input type="checkbox" disabled @(tasks.IsCompleted ? "checked" : "") />
+                        @tasks.TaskName
+                    </label>
+                </div>
+            }
+        </div>
+       
+    </div>
+    <div class="requirements">
+        <h4>Requirements</h4>
+        <div>
+            @foreach (var requirement in Model.Item2)
+            {
+                <div class="checklist-item @(requirement.IsCompleted ? "completed" : "")">
+                    <label>
+                        <input type="checkbox" disabled @(requirement.IsCompleted ? "checked" : "") />
+                        @requirement.TaskName
+                    </label>
+                </div>
+            }
+        </div>
+    </div>
+</div>
