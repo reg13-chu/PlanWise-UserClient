@@ -1,0 +1,188 @@
+﻿@model PlanWise_UserClient.Models.SettingsViewModel
+
+@{
+    Layout = "_Layout";
+    var imagePath = Model?.ProfileImagePath ?? "default-profile.png";
+}
+
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #FFF2F2;
+            color: #2D336B;
+            overflow-x: hidden;
+        }
+
+        h2 {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .settings {
+            margin: 0 10%
+        }
+        .info-details label {
+            margin-bottom: 5px;
+            font-weight: bold;
+            font-family: 'Afacad', sans-serif;
+            color: #2D336B;
+            text-align: left;
+        }
+
+        .info-details {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 5% auto;
+            font-family: 'Afacad', sans-serif;
+            max-width: 40%;
+            
+
+        }
+
+            .info-details input {
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                font-size: 16px;
+                width: 100%;
+                box-sizing: border-box;
+                font-family: 'Afacad', sans-serif;
+                color: #2D336B;
+                background-color: rgba(169, 181, 223, 58%);
+            }
+
+        .half input {
+            width: 30%;
+            margin-right: 2%;
+            display: flex;
+            gap: 20px;
+        }
+
+        .form-group {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .button-group {
+            text-align: left;
+            margin-top: 50px;
+        }
+
+            .button-group button,
+            .button-group a {
+                margin: 5px;
+                padding: 10px 20px;
+                border-radius: 4px;
+                font-weight: bold;
+                text-decoration: none;
+            }
+
+        .btn-save {
+            background-color: #2D336B;
+            color: white;
+            border: none;
+        }
+
+        .btn-logout {
+            background-color: transparent;
+            color: #2D336B;
+            border: 2px solid #2D336B;
+        }
+        
+    </style>
+</head>
+
+<h2>ACCOUNT SETTINGS</h2>
+
+<div class="settings">
+    <div class="profile-pic">
+        <form asp-action="UpdateProfile" enctype="multipart/form-data" method="post">
+            <!-- Profile Picture Preview -->
+            <img id="preview"
+                 src="~/images/default-profile.png"
+                 alt="Profile"
+                 style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 8px rgba(0,0,0,0.2);" />
+
+            <br />
+
+            <!-- Hidden File Input -->
+            <input type="file" id="upload" name="ProfileImage" accept="image/*" onchange="previewImage(this)" style="display: none;" />
+
+            <!-- Custom Upload Button -->
+            <label for="upload" style="
+                display: inline-block;
+                margin-top: 10px;
+                margin-bottom: 20px;
+                padding: 8px 16px;
+                background-color: #2D336B;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            ">
+                Change Profile Picture
+            </label>
+
+            <!-- INFO DETAILS -->
+            <div class="info-details">
+                <label for="FullName">Full Name</label>
+                <input asp-for="FullName" id="FullName" />
+                <div class="half">
+                    <div class="form-group">
+                        <label for="Age">Age</label>
+                        <input asp-for="Age" id="Age" type="number" />
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="Username">Username</label>
+                        <input asp-for="Username" id="Username" />
+                    </div>
+                </div>
+                
+                <div class="half">
+
+                    <div class="form-group">
+                        <label for="MobileNumber">Mobile Number</label>
+                        <input asp-for="MobileNumber" id="MobileNumber" />
+                    </div>
+                   
+
+                    <div class="form-group">
+                        <label for="Email">Email</label>
+                        <input asp-for="Email" id="Email" type="email" />
+                    </div>
+                    
+                </div>
+
+                <label for="Location">Location</label>
+                <input asp-for="Location" id="Location" />
+            </div>
+
+            <!-- Buttons -->
+            <div class="button-group">
+                <button type="submit" class="btn-save">Save</button>
+                <a asp-action="Logout" asp-controller="Account" class="btn-logout">Log Out</a>
+            </div>
+        </form>
+    </div>
+
+   
+</div>
+
+@section Scripts {
+    <script>
+            function previewImage(input) {
+            const file = input.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById('preview').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+}
