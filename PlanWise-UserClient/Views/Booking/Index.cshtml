@@ -1,0 +1,171 @@
+﻿@model PlanWise_UserClient.Models.BookingViewModel
+
+@{
+    ViewData["Title"] = "Booking";
+    Layout = "_Layout";
+}
+
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #FFF2F2;
+            color: #2D336B;
+            overflow-x: hidden;
+            margin-right: 15%;
+        }
+
+        h2, p {
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 0 auto 20px;
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #2D336B;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="number"],
+        input[type="date"],
+        input[type="time"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        textarea {
+            resize: vertical;
+            height: 80px;
+        }
+
+        input[readonly] {
+            background-color: #f1f1f1;
+        }
+
+        button {
+            width: 100%;
+            background-color: #2D336B;
+            color: white;
+            padding: 12px;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+            button:hover {
+                background-color: #1f254a;
+            }
+
+
+        input, textarea, button {
+            font-size: 14px;
+        }
+
+        .btn-icon-back {
+            display: inline-block;
+            margin: 20px;
+            color: #2D336B; /* Change this to any color you want */
+            font-weight: bold;
+            font-size: 16px;
+            text-decoration: none; /* Removes underline */
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+            .btn-icon-back .text {
+                opacity: 0;
+                margin-left: 8px;
+                transition: opacity 0.3s ease;
+                white-space: nowrap;
+            }
+
+            .btn-icon-back:hover .text {
+                opacity: 1;
+                color: #1f254a;
+            }
+
+        input[type="tel"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: 'Afacad', sans-serif;
+            color: #2D336B;
+        }
+
+            /* Remove default focus outline and style */
+            input[type="tel"]:focus {
+                outline: none;
+                border-color: #2D336B;
+                box-shadow: 0 0 5px rgba(45, 51, 107, 0.5);
+            }
+
+    </style>
+</head>
+
+<h2>Event Request Form</h2>
+
+<form asp-action="Confirmation" method="post">
+    <label>Event Type</label>
+    <input asp-for="EventType" readonly />
+
+    <label>Client Name</label>
+    <input asp-for="ClientName" placeholder="Noah Elizalde" required />
+
+    <label>Client Email</label>
+    <input asp-for="ClientEmail" placeholder="noah@gmail.com" required />
+
+    <label>Client Phone</label>
+    <input asp-for="ClientPhone" type="tel" placeholder="09XXXXXXXXX" pattern="09[0-9]{9}" maxlength="11" required />
+
+    <label>Date</label>
+    <input asp-for="EventDate" type="date" required />
+
+    <label>Time</label>
+    <input asp-for="EventTime" type="time" required />
+
+    <label>Location</label>
+    <input asp-for="Location" placeholder="Luxury Hotel or 123 Alegria St. Tondo, Manila" required />
+
+    <label>Number of Guests</label>
+    <input asp-for="NumberOfGuests" readonly />
+
+    <label>Estimated Budget</label>
+    <input asp-for="EstimatedBudget" readonly />
+
+    <label>Theme</label>
+    <input asp-for="Theme" placeholder="Ben10 Theme" />
+
+    <label>Notes</label>
+    <textarea asp-for="Notes"></textarea>
+
+    <button type="submit">Submit Event Request</button>
+</form>
+
+<div style="text-align: center; margin-bottom: 20px;">
+    <a asp-controller="Estimator" asp-action="Index" class="btn-back-estimator">← Back to Estimator</a>
+</div>
+
+<a asp-controller="Estimator" asp-action="Index" class="btn-icon-back" title="Back to Budget Estimator">
+    ← <span class="text">Back to Budget Estimator</span>
+</a>

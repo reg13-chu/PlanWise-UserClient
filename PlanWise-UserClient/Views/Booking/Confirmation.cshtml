@@ -1,0 +1,55 @@
+﻿@{
+    ViewData["Title"] = "Booking Confirmation";
+    Layout = "_Layout"; // remove or change if you're not using a shared layout
+}
+
+<style>
+    body {
+        background-color: #FFF2F2;
+        color: #2D336B;
+        overflow-x: hidden;
+        margin-right: 15%;
+    }
+
+    .confirmation-container {
+        text-align: center;
+        padding: 50px 20px;
+        font-family: 'Segoe UI', sans-serif;
+        color: #2D336B;
+    }
+
+        .confirmation-container h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .confirmation-container p {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+    .back-btn {
+        background-color: #2D336B;
+        color: white;
+        padding: 12px 25px;
+        font-size: 16px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+    }
+
+        .back-btn:hover {
+            background-color: #1f254a;
+        }
+</style>
+
+<div class="confirmation-container">
+    <h2>Thank you for your booking!</h2>
+    <p>We’ll get back to you shortly.</p>
+
+    <a asp-controller="Dashboard" asp-action="Index" class="back-btn">
+        Back to Dashboard
+    </a>
+</div>
